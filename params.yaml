@@ -1,4 +1,5 @@
 
 
 
-key : val
+KMeans :
+  n_clusters : 1

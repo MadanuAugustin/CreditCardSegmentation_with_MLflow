@@ -33,5 +33,17 @@ class DataValidationConfig:
 class DataTransformationConfig:
     root_dir : Path
     local_data_file : Path
-    train_path : Path
-    test_path : Path
+    train_data_path : Path
+    test_data_path : Path
+
+
+#################################### MODEL-TRAINER-CONFIG ################################
+
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir : Path
+    train_data_path : Path
+    test_data_path : Path
+    model_name : str
+    target_column : str
