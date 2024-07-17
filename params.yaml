@@ -2,5 +2,5 @@
 
 
 KMeans :
-  n_clusters : 4
+  n_clusters : 12
   init : 'k-means++'

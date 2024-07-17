@@ -10,10 +10,10 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0e68c;
-            /* Khaki background */
-            color: #4b0082;
-            /* Indigo text */
+            background-color: #87cefa;
+            /* Light Sky Blue background */
+            color: #8b008b;
+            /* Dark Magenta text */
             margin: 0;
             padding: 0;
         }
@@ -22,16 +22,16 @@
             max-width: 400px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #ffb6c1;
-            /* Light Pink background */
+            background-color: #98fb98;
+            /* Pale Green background */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             border-radius: 5px;
         }
 
         h1 {
             text-align: center;
-            color: #4b0082;
-            /* Indigo text */
+            color: #8b008b;
+            /* Dark Magenta text */
             font-size: 28px;
             font-weight: 700;
         }
@@ -47,8 +47,8 @@
         label {
             display: block;
             margin-bottom: 5px;
-            color: #4b0082;
-            /* Indigo text */
+            color: #8b008b;
+            /* Dark Magenta text */
             font-weight: bold;
             font-size: 16px;
         }
@@ -58,27 +58,24 @@
             padding: 15px 10px;
             /* Adjusted padding to ensure placeholders are fully visible */
             box-sizing: border-box;
-            border: 1px solid #ff6347;
-            /* Tomato border */
+            border: 1px solid #8b0000;
             border-radius: 4px;
-            background-color: #98fb98;
-            /* Pale Green background */
-            color: #2e8b57;
-            /* Sea Green text */
+            background-color: #f0e68c;
+            /* Khaki background */
+            color: #2f4f4f;
             font-size: 14px;
         }
 
         .form-control::placeholder {
-            color: #ff69b4;
-            /* Hot Pink placeholder */
+            color: #c71585;
+            /* Medium Violet Red placeholder */
         }
 
         .form-control:focus {
             border-color: #ff4500;
-            /* Orange Red border */
             outline: none;
-            background-color: #fafad2;
-            /* Light Goldenrod Yellow background on focus */
+            background-color: #ff6347;
+            /* Tomato background on focus */
         }
 
         select.form-control,
@@ -87,8 +84,7 @@
         }
 
         .btn-primary {
-            background-color: #20b2aa;
-            /* Light Sea Green background */
+            background-color: #ffa500;
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -100,15 +96,14 @@
         }
 
         .btn-primary:hover {
-            background-color: #3cb371;
-            /* Medium Sea Green background on hover */
+            background-color: #ff8c00;
         }
 
         h2 {
             text-align: center;
             margin-top: 20px;
-            color: #4b0082;
-            /* Indigo text */
+            color: #8b008b;
+            /* Dark Magenta text */
             font-size: 22px;
             font-weight: 700;
         }
@@ -121,6 +116,8 @@
 
         <form action="{{ url_for('predict_datapoint')}}" method="post">
 
+        
+
             <div class="mb-3">
                 <label class="form-label">BALANCE</label>
                 <input class="form-control" type="number" name="BALANCE" placeholder="Enter your balance" step="0.01" />
@@ -128,22 +125,21 @@
 
             <div class="mb-3">
                 <label class="form-label">PURCHASES</label>
-                <input class="form-control" type="number" name="PURCHASES" placeholder="Enter your purchases"
-                    step="0.01" />
+                <input class="form-control" type="number" name="PURCHASES" placeholder="Enter your purchases" step="0.01" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">CREDIT_LIMIT</label>
-                <input class="form-control" type="number" name="CREDIT_LIMIT" placeholder="Enter credit limit"
-                    step="0.01" />
+                <input class="form-control" type="number" name="CREDIT_LIMIT" placeholder="Enter credit limit" step="0.01" />
             </div>
+
 
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Submit" />
             </div>
         </form>
 
-        <h2>Your credit card is segmented to: {{results}}</h2>
+        <h2>Your credit card is segmentated to : {{results}}</h2>
     </div>
 </body>
 
