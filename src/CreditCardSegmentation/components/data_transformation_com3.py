@@ -24,7 +24,7 @@ class DataTransformation:
 
 
 
-    def data_split(self):
+    def feature_selection(self):
         try:
 
             logger.info(f'-----------Entered data_split method---------------')
@@ -33,19 +33,13 @@ class DataTransformation:
 
             data = data[["BALANCE", 'PURCHASES', 'CREDIT_LIMIT']]
 
-            train, test = train_test_split(data, test_size=0.2, random_state=42)
-
-            train.to_csv(os.path.join(self.config.train_data_path, 'train.csv'), index = False, header = True)
+            data.dropna(inplace=True)
         
-            test.to_csv(os.path.join(self.config.test_data_path, 'test.csv'), index = False, header = True)
+            data.to_csv(os.path.join(self.config.data_path, 'data.csv'), index = False, header = True)
 
-            logger.info(f'----------------saved train test data in csv format------------------')
+            logger.info(f'----------------saved data in csv format------------------')
 
-            logger.info(f'------------The shape of the train data is {train.shape}')
-
-            logger.info(f'--------------The shape of the test data is {test.shape}')
-
-            logger.info(f'------------completed data splitting----------------------')
+            logger.info(f'------------The shape of the data is {data.shape}')
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -93,27 +87,19 @@ class DataTransformation:
 
             logger.info(f'------------started initiate_data_transformation method------------')
 
-            train_df = pd.read_csv('artifacts//data_transformation//train.csv')
+            data_df = pd.read_csv('artifacts//data_transformation//data.csv')
             
-            test_df = pd.read_csv('artifacts//data_transformation//test.csv')
-
             logger.info(f'----------obtaining the preprocessor obj-----------')
 
             preprocessor_obj = self.preprocessor_fun()
 
-            transformed_train_df = pd.DataFrame(preprocessor_obj.fit_transform(train_df))
+            transformed_data_df = pd.DataFrame(preprocessor_obj.fit_transform(data_df))
 
             joblib.dump(preprocessor_obj, os.path.join(self.config.root_dir, 'preprocessor_obj.joblib'))
 
-            # transformed_test_df = pd.DataFrame(preprocessor_obj.transform(test_df))
+            transformed_data_df.rename(columns={0 : 'BALANCE', 1 : 'PURCHASES', 2 : 'CREDIT_LIMIT'}, inplace=True)
 
-            transformed_train_df.rename(columns={0 : 'BALANCE', 1 : 'PURCHASES', 2 : 'CREDIT_LIMIT'}, inplace=True)
-
-            # transformed_test_df.rename(columns={0 : 'BALANCE', 1 : 'PURCHASES', 2 : 'CREDIT_LIMIT'}, inplace=True)
-
-            transformed_train_df.to_csv(os.path.join(self.config.root_dir, 'transformed_train_df.csv'), index = False, header = True)
-
-            # transformed_test_df.to_csv(os.path.join(self.config.root_dir, 'transformed_test_df.csv'), index = False, header = True)
+            transformed_data_df.to_csv(os.path.join(self.config.root_dir, 'transformed_data_df.csv'), index = False, header = True)
 
             logger.info(f'-------------transformed data using preprocessor obj and saved in csv format----------')
 

@@ -15,22 +15,21 @@ class ModelTrainer:
 
     def initiate_model_training(self):
 
-        # train_data = pd.read_csv(self.config.train_data_path)
-        train_df = pd.read_csv(self.config.train_data_path)
+        data_df = pd.read_csv(self.config.data_path)
 
-        train_df.dropna(inplace=True)
+        # data_df.dropna(inplace=True)
 
-        kmeans = KMeans(n_clusters=2, random_state=42)
+        kmeans = KMeans(n_clusters=self.config.n_clusters, init=self.config.init, random_state=42)
 
-        kmeans.fit(train_df)
+        kmeans.fit(data_df)
 
         logger.info(f'---------Model training completed------------')
 
         labels = kmeans.labels_
 
-        labeled_train_df = pd.DataFrame(np.c_[train_df, labels])
+        labeled_data_df = pd.DataFrame(np.c_[data_df, labels])
 
-        labeled_train_df.to_csv(os.path.join(self.config.root_dir, 'labeled_train_df.csv'), index = False, header = True)
+        labeled_data_df.to_csv(os.path.join(self.config.root_dir, 'labeled_data_df.csv'), index = False, header = True)
 
         joblib.dump(kmeans, os.path.join(self.config.root_dir, self.config.model_name))
 

@@ -33,8 +33,7 @@ class DataValidationConfig:
 class DataTransformationConfig:
     root_dir : Path
     local_data_file : Path
-    train_data_path : Path
-    test_data_path : Path
+    data_path : Path
 
 
 #################################### MODEL-TRAINER-CONFIG ################################
@@ -43,7 +42,21 @@ class DataTransformationConfig:
 @dataclass(frozen=True)
 class ModelTrainerConfig:
     root_dir : Path
-    train_data_path : Path
-    test_data_path : Path
+    data_path : Path
     model_name : str
-    target_column : str
+    n_clusters : int
+    init : str
+
+
+
+#################################### MODEL-EVALUATION-CONFIG ################################
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir : Path
+    model_path : Path
+    metric_file_name : Path
+    all_params : dict
+    mlflow_uri : str
+    data_path : Path

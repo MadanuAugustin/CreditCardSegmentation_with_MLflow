@@ -20,6 +20,3 @@ COLUMNS :
   PRC_FULL_PAYMENT                   : float64
   TENURE                             :   int64
 
-
-TARGET_COLUMN :
-  name : CREDIT_CARD_SEGMENTS

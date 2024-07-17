@@ -7,6 +7,7 @@ from src.CreditCardSegmentation.pipeline.stage_01_dataIngestion import DataInges
 from src.CreditCardSegmentation.pipeline.stage_02_dataValidation import DataValidationTrainingPipeline
 from src.CreditCardSegmentation.pipeline.stage_03_dataTransformation import DataTransformationPipeline
 from src.CreditCardSegmentation.pipeline.stage_04_modelTraining import ModelTrainingPipeline
+from src.CreditCardSegmentation.pipeline.stage_05_modelEvaluation import ModelEvaluationPipeline
 from src.CreditCardSegmentation.Exception.custom_exception import CustomException
 
 
@@ -56,5 +57,15 @@ try:
     logger.info(f'--------------------stage {STAGE_NAME} started---------------------')
     model_training_obj = ModelTrainingPipeline()
     model_training_obj.main()
+except Exception as e:
+    raise CustomException(e, sys)
+
+
+STAGE_NAME = 'Model Evaluation Stage'
+
+try:
+    logger.info(f'---------------stage {STAGE_NAME} started---------------------')
+    model_evaluation_obj = ModelEvaluationPipeline()
+    model_evaluation_obj.main()
 except Exception as e:
     raise CustomException(e, sys)

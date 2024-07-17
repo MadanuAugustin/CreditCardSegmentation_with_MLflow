@@ -3,7 +3,8 @@ from src.CreditCardSegmentation.logger_file.logger_obj import logger
 from src.CreditCardSegmentation.constants import *
 from src.CreditCardSegmentation.utils.common import read_yaml, create_directories
 from src.CreditCardSegmentation.entity.config_entity import (DataIngestionConfig, DataValidationConfig,
-                                                             DataTransformationConfig, ModelTrainerConfig)
+                                                             DataTransformationConfig, ModelTrainerConfig,
+                                                             ModelEvaluationConfig)
 
 
 class ConfigurationManager:
@@ -65,8 +66,8 @@ class ConfigurationManager:
         data_transformation_config = DataTransformationConfig(
             root_dir= config.root_dir,
             local_data_file= config.local_data_file,
-            train_data_path = config.train_data_path,
-            test_data_path= config.test_data_path
+            data_path = config.data_path,
+        
         )
     
 
@@ -76,16 +77,35 @@ class ConfigurationManager:
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         
         config = self.config.model_trainer
-        schema = self.schema.TARGET_COLUMN
+        params = self.params.KMeans
 
         create_directories([config.root_dir])
 
         model_trainer_config = ModelTrainerConfig(
             root_dir = config.root_dir,
-            train_data_path= config.train_data_path,
-            test_data_path= config.test_data_path,
+            data_path= config.data_path,
             model_name= config.model_name,
-            target_column = schema.name
+            n_clusters=params.n_clusters,
+            init=params.init
         )
 
         return model_trainer_config
+    
+
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        params = self.params.KMeans
+
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir = config.root_dir,
+            model_path = config.model_path,
+            all_params= params,
+            data_path = config.data_path,
+            metric_file_name=config.metric_file_name,
+            mlflow_uri="https://dagshub.com/augustin7766/CreditCardSegmentation_with_MLflow.mlflow"
+        )
+
+        return model_evaluation_config
